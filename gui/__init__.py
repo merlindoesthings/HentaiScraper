@@ -101,11 +101,8 @@ class GUI(ctk.CTk):
                                        font = ("Roboto", 14))
         self.path_label.place(x = 88, y = 61)
 
-    def download(self):
-        if self.local_settingFrame.winfo_ismapped():
-            self.local_settingFrame.place_forget()
-    
-        nHentai(self.url_entry.get()).main(self.log_frame)
+    def download(self):    
+        nHentai(self.url_entry.get()).main()
                     
     def update_userSetting(self, key, value):
         data = Parser().read_file()
