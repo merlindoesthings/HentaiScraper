@@ -82,45 +82,23 @@ class nHentai:
             return 1
         
     def main(self, window):
-        index = 1
-        data = Parser().read_file()
-        
+        data = Parser().read_file() 
         result = self.get_data()
-        
-        if result == 0:
-            window.insert(f"{index}.end", "Data have been extracted.")
-            index += 1
-        
-        else:
-            window.insert(f"{index}.end", "Data extraction aborted.")
+
+        if result == 1:
             return
         
         temp_path = f"{data['UserSetting']['CurrentPath']}/{self.title[0]}"
         
         if not os.path.exists(temp_path):
             os.mkdir(temp_path)
-            window.insert(f"{index}.end", "Temporary directory created.")
-            index += 1
             
         else:
-            window.insert(f"{index}.end", "Directory already exists. Aborted session.")
-            index += 1
             return
         
         with ThreadPoolExecutor(max_workers = data['UserSetting']['Parallelism']) as exc:
             futures = [exc.submit(self.download_image, url, temp_path) for url in self.pages]
             [future.result() for future in as_completed(futures)]
-        
-        window.insert(f"{index}.end", "Pages have been downloaded.")
-        index += 1
-        
-        self.img2PDF(temp_path)
-        
-        window.insert(f"{index}.end", "Images have been compiled to a PDF.")
-        index += 1
-        
+               
+        self.img2PDF(temp_path)     
         shutil.rmtree(temp_path)
-        window.insert(f"{index}.end", "Temporary directory has been deleted.")
-        index += 1 
-
-        window.insert(f"{index}.end", "Session finished. Download successful.")
