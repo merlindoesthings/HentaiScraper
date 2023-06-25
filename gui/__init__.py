@@ -180,7 +180,7 @@ class GUI(ctk.CTk):
             worker3 = ctk.CTkRadioButton(self.local_settingFrame,
                                          value = 3,
                                          variable = self.threads,
-                                         text = "4 Threads",
+                                         text = "3 Threads",
                                          border_color = BORDER_COLOR,
                                          fg_color = BORDER_COLOR,
                                          corner_radius = 90,
