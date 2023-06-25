@@ -81,7 +81,7 @@ class nHentai:
         except:
             return 1
         
-    def main(self, window):
+    def main(self):
         data = Parser().read_file() 
         result = self.get_data()
 
